@@ -19,6 +19,7 @@ describe('gitea workflows scaffolder', () => {
     expect(await scaffoldWorkflows({projectRoot})).toEqual({});
 
     expect(fs.mkdir).toHaveBeenCalledWith(`${projectRoot}/.gitea/workflows`);
+    expect(fs.writeFile).toHaveBeenCalledWith(`${projectRoot}/.gitea/workflows/.gitkeep`, '');
   });
 
   it('should not create the workflows directory when the repository is not hosted on gitea', async () => {
