@@ -31,7 +31,7 @@ form8ion plugin for managing Gitea workflows
 ### Installation
 
 ```sh
-$ npm install @form8ion/gitea-workflows
+$ npm install @form8ion/gitea-workflows --save-prod
 ```
 
 ### Example
