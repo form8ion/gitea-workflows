@@ -7,13 +7,13 @@ import stubbedFs from 'mock-fs';
 const __dirname = dirname(fileURLToPath(import.meta.url));          // eslint-disable-line no-underscore-dangle
 const stubbedNodeModules = stubbedFs.load(resolve(__dirname, '..', '..', '..', '..', 'node_modules'));
 
-let scaffold, test, lift;
+let scaffold, test, lift, qualify;
 
 Before(async function () {
   this.projectRoot = process.cwd();
 
   // eslint-disable-next-line import/no-extraneous-dependencies,import/no-unresolved
-  ({scaffold, test, lift} = await import('@form8ion/gitea-workflows'));
+  ({scaffold, test, lift, qualify} = await import('@form8ion/gitea-workflows'));
 
   stubbedFs({
     node_modules: stubbedNodeModules
@@ -25,7 +25,9 @@ After(function () {
 });
 
 When('the project is scaffolded', async function () {
-  await scaffold({projectRoot: this.projectRoot});
+  if (await qualify({projectRoot: this.projectRoot})) {
+    await scaffold({projectRoot: this.projectRoot});
+  }
 });
 
 When('the project is lifted', async function () {
